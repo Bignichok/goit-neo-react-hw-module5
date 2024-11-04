@@ -1,5 +1,13 @@
+import TrendingMovies from '@/components/TrendingMovies';
+import Navigation from '@/components/Navigation';
+
 const HomePage = () => {
-	return <div>Home</div>;
+	return (
+		<>
+			<Navigation />
+			<TrendingMovies />
+		</>
+	);
 };
 
 export default HomePage;
