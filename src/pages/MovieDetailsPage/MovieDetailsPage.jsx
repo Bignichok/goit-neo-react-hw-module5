@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useParams, useNavigate, useLocation, Link } from 'react-router-dom';
-
 import api from '@/api/tmdbApi.js';
 
 const MovieDetailsPage = () => {
 	const { movieId } = useParams();
 	const [movie, setMovie] = useState(null);
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	useEffect(() => {
 		const fetchMovieDetails = async () => {
 			try {
+				setLoading(true);
 				const response = await api.get(`/movie/${movieId}`);
 				setMovie(response.data);
 			} catch (error) {
+				setError('Error fetching movie details. Please try again later.');
 				console.error('Error fetching movie details:', error);
+			} finally {
+				setLoading(false);
 			}
 		};
 
@@ -26,25 +31,34 @@ const MovieDetailsPage = () => {
 		navigate(location.state?.url || '/movies');
 	};
 
-	if (!movie) {
+	if (loading) {
 		return <p>Loading...</p>;
+	}
+
+	if (error) {
+		return <p>{error}</p>;
 	}
 
 	return (
 		<div>
 			<button onClick={goBack}>Go Back</button>
 			<h1>{movie.title}</h1>
-			<img src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}></img>
+			<img src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt={movie.title} />
 			<p>{movie.overview}</p>
 			<p>Release Date: {movie.release_date}</p>
+
 			<div>
-				<h2>Additional info</h2>
+				<h2>Additional Info</h2>
 				<ul>
 					<li>
-						<Link to={`/movies/${movieId}/cast`}>cast</Link>
+						<Link to={`/movies/${movieId}/cast`} state={location.state}>
+							Cast
+						</Link>
 					</li>
 					<li>
-						<Link to={`/movies/${movieId}/reviews`}>reviews</Link>
+						<Link to={`/movies/${movieId}/reviews`} state={location.state}>
+							Reviews
+						</Link>
 					</li>
 				</ul>
 			</div>

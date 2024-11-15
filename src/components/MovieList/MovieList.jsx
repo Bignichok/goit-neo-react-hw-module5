@@ -6,7 +6,7 @@ const MovieList = ({ movies }) => {
 	if (!movies.length) {
 		return null;
 	}
-
+	console.log({ pathname, search });
 	return (
 		<ul>
 			{movies.map(movie => (
