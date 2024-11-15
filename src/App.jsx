@@ -6,10 +6,12 @@ import MovieDetailsPage from '@/pages/MovieDetailsPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import MovieCast from '@/components/MovieCast';
 import MovieReviews from '@/components/MovieReviews';
+import Navigation from '@/components/Navigation';
 
 const App = () => {
 	return (
-		<div>
+		<>
+			<Navigation />
 			<Routes>
 				<Route path="/" element={<HomePage />} />
 				<Route path="/movies" element={<MoviesPage />} />
@@ -19,7 +21,7 @@ const App = () => {
 				</Route>
 				<Route path="*" element={<NotFoundPage />} />
 			</Routes>
-		</div>
+		</>
 	);
 };
 
