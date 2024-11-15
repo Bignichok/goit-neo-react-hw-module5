@@ -1,5 +1,52 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import api from '@/api/tmdbApi.js';
+
 const MovieCast = () => {
-	return <div>MovieCast</div>;
+	const { movieId } = useParams();
+	const [cast, setCast] = useState([]);
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		const fetchMovieCast = async () => {
+			try {
+				setLoading(true);
+				const response = await api.get(`/movie/${movieId}/credits`);
+				setCast(response.data?.cast || []);
+			} catch (error) {
+				console.error('Error fetching movie details:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchMovieCast();
+	}, [movieId]);
+
+	return (
+		<div>
+			<h3>Movie Cast</h3>
+			{loading ? (
+				<div>loading...</div>
+			) : (
+				<ul>
+					{cast.length > 0 ? (
+						cast.map(({ original_name, character, id, profile_path }) => {
+							return (
+								<li key={id}>
+									<img src={`https://image.tmdb.org/t/p/w500/${profile_path}`}></img>
+									<p>{original_name}</p>
+									<p>{character}</p>
+								</li>
+							);
+						})
+					) : (
+						<p>There is no cast info for this movie</p>
+					)}
+				</ul>
+			)}
+		</div>
+	);
 };
 
 export default MovieCast;

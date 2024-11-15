@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import api from '@/api/tmdbApi.js';
+import MovieList from '@/components/MovieList';
 
 const TrendingMovies = ({ timeWindow = 'day' }) => {
 	const [movies, setMovies] = useState([]);
@@ -23,11 +23,7 @@ const TrendingMovies = ({ timeWindow = 'day' }) => {
 		<div>
 			<h1>Trending Movies</h1>
 			<ul>
-				{movies.map(movie => (
-					<li key={movie.id}>
-						<Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-					</li>
-				))}
+				<MovieList movies={movies} />
 			</ul>
 		</div>
 	);
