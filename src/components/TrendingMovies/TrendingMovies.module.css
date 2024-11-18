@@ -1,0 +1,14 @@
+.trending {
+    padding: 16px;
+}
+
+.trending h1 {
+    margin-bottom: 16px;
+    color: #333;
+}
+
+.trending ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}

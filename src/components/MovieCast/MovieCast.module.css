@@ -1,0 +1,26 @@
+.cast {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+}
+
+.castItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 120px;
+}
+
+.castItem img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.castItem p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #555;
+}

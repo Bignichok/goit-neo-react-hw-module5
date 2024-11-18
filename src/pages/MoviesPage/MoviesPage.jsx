@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from '@/api/tmdbApi.js';
 import MovieList from '@/components/MovieList';
+import styles from './MoviesPage.module.css';
 
 const MoviesPage = () => {
 	const [movies, setMovies] = useState([]);
@@ -14,9 +15,7 @@ const MoviesPage = () => {
 	const fetchMoviesByQuery = async query => {
 		setLoading(true);
 		try {
-			const response = await api.get('/search/movie', {
-				params: { query },
-			});
+			const response = await api.get('/search/movie', { params: { query } });
 			setMovies(response.data.results);
 		} catch (error) {
 			console.error('Error fetching movies:', error);
@@ -47,8 +46,8 @@ const MoviesPage = () => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
+		<div className={styles.page}>
+			<form onSubmit={handleSubmit} className={styles.form}>
 				<input
 					name="searchQuery"
 					placeholder="Search movie"

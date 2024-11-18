@@ -1,0 +1,40 @@
+.details {
+    padding: 16px;
+}
+
+.details img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.details button {
+    margin-bottom: 16px;
+    padding: 8px 16px;
+    color: #fff;
+    background-color: #2196f3;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.details button:hover {
+    background-color: #1769aa;
+}
+
+.additionalInfo {
+    margin-top: 16px;
+}
+
+.additionalInfo h2 {
+    margin-bottom: 8px;
+}
+
+.additionalInfo ul {
+    padding-left: 16px;
+}
+
+.additionalInfo ul li {
+    margin-bottom: 8px;
+}

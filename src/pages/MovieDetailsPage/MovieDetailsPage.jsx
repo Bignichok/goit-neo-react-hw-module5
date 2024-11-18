@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import api from '@/api/tmdbApi.js';
+import styles from './MovieDetailsPage.module.css';
 
 const MovieDetailsPage = () => {
 	const { movieId } = useParams();
@@ -40,14 +41,14 @@ const MovieDetailsPage = () => {
 	}
 
 	return (
-		<div>
+		<div className={styles.details}>
 			<button onClick={goBack}>Go Back</button>
 			<h1>{movie.title}</h1>
 			<img src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt={movie.title} />
 			<p>{movie.overview}</p>
 			<p>Release Date: {movie.release_date}</p>
 
-			<div>
+			<div className={styles.additionalInfo}>
 				<h2>Additional Info</h2>
 				<ul>
 					<li>

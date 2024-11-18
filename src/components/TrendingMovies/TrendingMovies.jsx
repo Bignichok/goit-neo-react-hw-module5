@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-
 import api from '@/api/tmdbApi.js';
 import MovieList from '@/components/MovieList';
+import styles from './TrendingMovies.module.css';
 
 const TrendingMovies = ({ timeWindow = 'day' }) => {
 	const [movies, setMovies] = useState([]);
@@ -20,7 +20,7 @@ const TrendingMovies = ({ timeWindow = 'day' }) => {
 	}, [timeWindow]);
 
 	return (
-		<div>
+		<div className={styles.trending}>
 			<h1>Trending Movies</h1>
 			<ul>
 				<MovieList movies={movies} />
