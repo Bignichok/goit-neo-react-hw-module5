@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+
 import api from '@/api/tmdbApi.js';
 import MovieList from '@/components/MovieList';
 import styles from './MoviesPage.module.css';
 
 const MoviesPage = () => {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const [movies, setMovies] = useState([]);
-	const [searchQuery, setSearchQuery] = useState('');
+	const [searchQuery, setSearchQuery] = useState(searchParams.get("query") || '');
 	const [loading, setLoading] = useState(false);
-
-	const location = useLocation();
-	const navigate = useNavigate();
 
 	const fetchMoviesByQuery = async query => {
 		setLoading(true);
@@ -25,22 +24,19 @@ const MoviesPage = () => {
 	};
 
 	useEffect(() => {
-		const params = new URLSearchParams(location.search);
-		const initialQuery = params.get('query') || '';
+		const query = searchParams.get('query');
 
-		if (initialQuery.length) {
-			setSearchQuery(initialQuery);
-			fetchMoviesByQuery(initialQuery);
+		if (query) {
+			fetchMoviesByQuery(query);
 		}
-	}, [location.search]);
+	}, [searchParams]);
 
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (searchQuery.length) {
-			fetchMoviesByQuery(searchQuery);
-			navigate(`?query=${encodeURIComponent(searchQuery)}`, { replace: true });
+			setSearchParams({ query: searchQuery });
 		} else {
-			navigate('', { replace: true });
+			setSearchParams({});
 			setMovies([]);
 		}
 	};
